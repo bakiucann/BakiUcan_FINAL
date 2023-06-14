@@ -15,6 +15,8 @@ protocol DetailViewProtocol: AnyObject {
     func displayPlaceholderArtwork()
     func displayCollectionPrice(_ price: Double)
     func displayAlbumSongs(_ songs: [Song])
+  func getArtworkImageView() -> UIImageView?
+
 }
 
 class DetailViewController: UIViewController, DetailViewProtocol {
@@ -126,6 +128,9 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         hideLoading()
         self.artworkImageView.image = image
     }
+  func getArtworkImageView() -> UIImageView? {
+      return artworkImageView
+  }
 
     func displayPlaceholderArtwork() {
         hideLoading()

@@ -5,7 +5,7 @@
 //  Created by Baki Uçan on 6.06.2023.
 //
 
-import UIKit
+import Foundation
 
 protocol DetailPresenterProtocol: AnyObject {
     var view: DetailViewProtocol? { get set }
@@ -41,15 +41,23 @@ class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
       }
     }
   }
-    func didRetrieveArtwork(_ data: Data) {
+  func didRetrieveArtwork(_ data: Data) {
       DispatchQueue.main.async {
-        if let image = UIImage(data: data) {
-          self.view?.displayArtwork(image)
-        } else {
-          self.view?.displayPlaceholderArtwork()
-        }
+          if let artworkURL = URL(string: self.song?.artworkUrl100 ?? ""),
+             let imageView = self.view?.getArtworkImageView() {
+              imageView.loadImage(from: artworkURL) { [weak self] image in
+                  if image != nil {
+                      self?.view?.displayArtwork(image!)
+                  } else {
+                      self?.view?.displayPlaceholderArtwork()
+                  }
+              }
+          } else {
+              self.view?.displayPlaceholderArtwork()
+          }
       }
-    }
+  }
+
 
   func didRetrieveAlbumSongs(_ songs: [Song]) {
       DispatchQueue.main.async {

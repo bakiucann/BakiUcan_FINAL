@@ -5,17 +5,17 @@
 //  Created by Baki Uçan on 6.06.2023.
 //
 
-import UIKit
+import Foundation
 
 protocol SearchRouterProtocol: AnyObject {
-    static func createModule() -> UIViewController
+    static func createModule() -> SearchViewController
     func pushToSongDetail(with song: Song)
 }
 
 class SearchRouter: SearchRouterProtocol {
-    weak var view: UIViewController?
+    weak var view: SearchViewController?
 
-    static func createModule() -> UIViewController {
+    static func createModule() -> SearchViewController {
         let view = SearchViewController()
         let interactor = SearchInteractor()
         let router = SearchRouter()
@@ -23,7 +23,7 @@ class SearchRouter: SearchRouterProtocol {
 
         view.presenter = presenter
         interactor.presenter = presenter
-        router.view = view // view özelliğini atama
+        router.view = view
 
         return view
     }

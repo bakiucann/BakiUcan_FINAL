@@ -5,14 +5,14 @@
 //  Created by Baki Uçan on 6.06.2023.
 //
 
-import UIKit
+import Foundation
 
 protocol DetailRouterProtocol: AnyObject {
-    static func createModule(with song: Song) -> UIViewController
+    static func createModule(with song: Song) -> DetailViewController
 }
 
 class DetailRouter: DetailRouterProtocol {
-    static func createModule(with song: Song) -> UIViewController {
+    static func createModule(with song: Song) -> DetailViewController {
         let view = DetailViewController()
         let presenter = DetailPresenter()
         let interactor = DetailInteractor()

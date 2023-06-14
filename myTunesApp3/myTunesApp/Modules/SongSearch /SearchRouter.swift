@@ -9,10 +9,12 @@ import UIKit
 
 protocol SearchRouterProtocol: AnyObject {
     static func createModule() -> UIViewController
-    func pushToSongDetail(with song: Song, from view: UIViewController)
+    func pushToSongDetail(with song: Song)
 }
 
 class SearchRouter: SearchRouterProtocol {
+    weak var view: UIViewController?
+
     static func createModule() -> UIViewController {
         let view = SearchViewController()
         let interactor = SearchInteractor()
@@ -21,11 +23,15 @@ class SearchRouter: SearchRouterProtocol {
 
         view.presenter = presenter
         interactor.presenter = presenter
+        router.view = view // view özelliğini atama
 
         return view
     }
 
-    func pushToSongDetail(with song: Song, from view: UIViewController) {
+    func pushToSongDetail(with song: Song) {
+        guard let view = view else {
+            return
+        }
         let songDetailViewController = DetailRouter.createModule(with: song)
         view.navigationController?.pushViewController(songDetailViewController, animated: true)
     }

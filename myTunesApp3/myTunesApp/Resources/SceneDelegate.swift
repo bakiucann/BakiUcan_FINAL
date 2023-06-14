@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
     let window = UIWindow(windowScene: windowScene)
-    let splashViewController = SplashRouter.createModule() // Start with the Splash screen
+    let splashViewController = SplashRouter.createModule()
     let navigationController = UINavigationController(rootViewController: splashViewController)
 
     window.rootViewController = navigationController

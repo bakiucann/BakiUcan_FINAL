@@ -21,7 +21,7 @@ protocol SearchViewProtocol: AnyObject, AlertPresentable, Loadable {
 }
 
 class SearchViewController: UIViewController, SearchViewProtocol {
-    var presenter: SearchPresenterProtocol?
+    var presenter: SearchPresenterProtocol? 
     let searchController = UISearchController(searchResultsController: nil)
 
     private lazy var tableView: UITableView = {

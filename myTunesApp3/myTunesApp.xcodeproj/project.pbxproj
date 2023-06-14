@@ -29,8 +29,6 @@
 		2D4F35932A2E918600CE124E /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35912A2E918600CE124E /* SplashPresenter.swift */; };
 		2D4F35942A2E918600CE124E /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35912A2E918600CE124E /* SplashPresenter.swift */; };
 		2D4F35962A2E918D00CE124E /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35952A2E918D00CE124E /* SplashRouter.swift */; };
-		2D4F35972A2E918D00CE124E /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35952A2E918D00CE124E /* SplashRouter.swift */; };
-		2D4F35982A2E918D00CE124E /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35952A2E918D00CE124E /* SplashRouter.swift */; };
 		2D4F359E2A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
 		2D4F359F2A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
 		2D4F35A02A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
@@ -50,11 +48,7 @@
 		2D4F35BA2A2EC26C00CE124E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B82A2EC26C00CE124E /* SearchInteractor.swift */; };
 		2D4F35BB2A2EC26C00CE124E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B82A2EC26C00CE124E /* SearchInteractor.swift */; };
 		2D4F35BD2A2EC27A00CE124E /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35BC2A2EC27A00CE124E /* SearchPresenter.swift */; };
-		2D4F35BE2A2EC27A00CE124E /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35BC2A2EC27A00CE124E /* SearchPresenter.swift */; };
-		2D4F35BF2A2EC27A00CE124E /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35BC2A2EC27A00CE124E /* SearchPresenter.swift */; };
 		2D4F35C12A2EC28400CE124E /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C02A2EC28400CE124E /* SearchRouter.swift */; };
-		2D4F35C22A2EC28400CE124E /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C02A2EC28400CE124E /* SearchRouter.swift */; };
-		2D4F35C32A2EC28400CE124E /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C02A2EC28400CE124E /* SearchRouter.swift */; };
 		2D4F35C52A2F683400CE124E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C42A2F683400CE124E /* DetailViewController.swift */; };
 		2D4F35C92A2F6A1600CE124E /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C82A2F6A1600CE124E /* DetailPresenter.swift */; };
 		2D4F35CD2A2F6A9C00CE124E /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35CC2A2F6A9C00CE124E /* DetailRouter.swift */; };
@@ -550,9 +544,7 @@
 			files = (
 				2D4F35B62A2EC25200CE124E /* SearchViewController.swift in Sources */,
 				2D4F359F2A2E954A00CE124E /* NetworkManager.swift in Sources */,
-				2D4F35BE2A2EC27A00CE124E /* SearchPresenter.swift in Sources */,
 				2D4F35AC2A2E9B7900CE124E /* DurationFormatter.swift in Sources */,
-				2D4F35972A2E918D00CE124E /* SplashRouter.swift in Sources */,
 				2D85AACC2A30135D0097E5EE /* SearchCell.swift in Sources */,
 				2D4F35B02A2E9B8700CE124E /* UIImage+Extension.swift in Sources */,
 				2D4F35622A2E8FAC00CE124E /* myTunesAppTests.swift in Sources */,
@@ -562,7 +554,6 @@
 				2D4F35A82A2E978D00CE124E /* CoreDataManager.swift in Sources */,
 				2D4F35D22A2F6B6300CE124E /* DetailInteractor.swift in Sources */,
 				2D4F35932A2E918600CE124E /* SplashPresenter.swift in Sources */,
-				2D4F35C22A2EC28400CE124E /* SearchRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,7 +563,6 @@
 			files = (
 				2D4F35882A2E915C00CE124E /* SplashViewController.swift in Sources */,
 				2D4F35B72A2EC25200CE124E /* SearchViewController.swift in Sources */,
-				2D4F35982A2E918D00CE124E /* SplashRouter.swift in Sources */,
 				2D4F35D32A2F6B6300CE124E /* DetailInteractor.swift in Sources */,
 				2D4F35942A2E918600CE124E /* SplashPresenter.swift in Sources */,
 				2D4F35A02A2E954A00CE124E /* NetworkManager.swift in Sources */,
@@ -580,8 +570,6 @@
 				2D4F35BB2A2EC26C00CE124E /* SearchInteractor.swift in Sources */,
 				2D4F356C2A2E8FAC00CE124E /* myTunesAppUITests.swift in Sources */,
 				2D4F35AD2A2E9B7900CE124E /* DurationFormatter.swift in Sources */,
-				2D4F35BF2A2EC27A00CE124E /* SearchPresenter.swift in Sources */,
-				2D4F35C32A2EC28400CE124E /* SearchRouter.swift in Sources */,
 				2D4F35B12A2E9B8700CE124E /* UIImage+Extension.swift in Sources */,
 				2D85AACD2A30135D0097E5EE /* SearchCell.swift in Sources */,
 				2D4F35A92A2E978D00CE124E /* CoreDataManager.swift in Sources */,
@@ -739,7 +727,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5357NHCGPZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = myTunesApp2/Resources/Info.plist;
+				INFOPLIST_FILE = myTunesApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -767,7 +755,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5357NHCGPZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = myTunesApp2/Resources/Info.plist;
+				INFOPLIST_FILE = myTunesApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

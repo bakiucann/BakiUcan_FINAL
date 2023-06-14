@@ -5,7 +5,7 @@
 //  Created by Baki Uçan on 6.06.2023.
 //
 
-import UIKit
+import Foundation
 import Loadable
 import AlertPresentable
 import AVFoundation
@@ -57,7 +57,7 @@ class SearchPresenter: SearchPresenterProtocol {
       view?.showError(withMessage: message)
   }
     func showSongDetail(forSong song: Song) {
-        router.pushToSongDetail(with: song, from: view as! UIViewController)
+        router.pushToSongDetail(with: song)
     }
 
     func playButtonTapped(for song: Song, at indexPath: IndexPath) {

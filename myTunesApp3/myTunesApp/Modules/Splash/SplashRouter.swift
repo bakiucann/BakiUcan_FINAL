@@ -35,5 +35,4 @@ class SplashRouter: SplashRouterProtocol {
       navigationController.modalPresentationStyle = .fullScreen
       viewController?.present(navigationController, animated: true, completion: nil)
   }
-
 }

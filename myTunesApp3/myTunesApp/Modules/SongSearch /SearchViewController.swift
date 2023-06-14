@@ -18,9 +18,19 @@ protocol SearchViewProtocol: AnyObject, AlertPresentable, Loadable {
     func hideLoading()
     func showError(withMessage message: String)
     func reloadData()
+    func updateButtonImage(at indexPath: IndexPath, to imageName: String)
+  
 }
 
 class SearchViewController: UIViewController, SearchViewProtocol {
+  func updateButtonImage(at indexPath: IndexPath, to imageName: String) {
+      guard let cell = tableView.cellForRow(at: indexPath) as? SearchCell else {
+          return
+      }
+      let image = UIImage(systemName: imageName)
+      cell.playButton.setImage(image, for: .normal)
+  }
+
     var presenter: SearchPresenterProtocol? 
     let searchController = UISearchController(searchResultsController: nil)
 

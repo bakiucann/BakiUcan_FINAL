@@ -15,6 +15,7 @@ class SearchCell: UITableViewCell {
     static let identifier = "SearchCell"
     weak var delegate: SearchCellDelegate?
     var playButtonTapped: (() -> Void)?
+    private var isPlaying: Bool = false
 
     private let trackNameLabel: UILabel = {
         let label = UILabel()
@@ -47,15 +48,14 @@ class SearchCell: UITableViewCell {
         return label
     }()
 
-  private let playButton: UIButton = {
-      let button = UIButton()
-      button.translatesAutoresizingMaskIntoConstraints = false
-      button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
-      button.tintColor = .systemPink
-      button.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-      return button
-  }()
-
+    public let playButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+        button.tintColor = .systemPink
+        button.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        return button
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -95,34 +95,31 @@ class SearchCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-  func configure(with song: Song, isPlaying: Bool) {
-      self.trackNameLabel.text = song.trackName
-      self.artistNameLabel.text = song.artistName
-      let imageName = isPlaying ? "pause.fill" : "play.circle.fill"
-      let image = UIImage(systemName: imageName)
-      playButton.setImage(image, for: .normal)
+    func configure(with song: Song, isPlaying: Bool) {
+        self.trackNameLabel.text = song.trackName
+        self.artistNameLabel.text = song.artistName
+        let imageName = isPlaying ? "pause.fill" : "play.circle.fill"
+        let image = UIImage(systemName: imageName)
+        playButton.setImage(image, for: .normal)
 
-      if let albumName = song.collectionName {
-          self.albumNameLabel.text = "Album: \(albumName)"
-      } else {
-          self.albumNameLabel.text = "Album: Unknown"
-      }
+        if let albumName = song.collectionName {
+            self.albumNameLabel.text = "Album: \(albumName)"
+        } else {
+            self.albumNameLabel.text = "Album: Unknown"
+        }
 
-     if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
-          URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
-              if let data = data {
-                  DispatchQueue.main.async {
-                      self.artworkImageView.image = UIImage(data: data)
-                  }
-              }
-          }.resume()
-      }
-  }
+        if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
+            URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        self.artworkImageView.image = UIImage(data: data)
+                    }
+                }
+            }.resume()
+        }
+    }
 
-
-  @objc private func didTapPlayButton() {
-      delegate?.didTapPlayButton(in: self)
-  }
-
-
+    @objc private func didTapPlayButton() {
+        delegate?.didTapPlayButton(in: self)
+    }
 }

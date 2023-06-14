@@ -12,20 +12,13 @@ protocol SearchInteractorInputProtocol: AnyObject {
     func searchSong(with term: String)
 }
 
-
 protocol SearchInteractorOutputProtocol: AnyObject {
     func didRetrieveSongs(_ songs: [Song])
     func onError()
 }
 
 class SearchInteractor: SearchInteractorInputProtocol {
-
-
-
-    weak var presenter: SearchInteractorOutputProtocol?
-
-
-
+ weak var presenter: SearchInteractorOutputProtocol?
 
     func searchSong(with term: String) {
         NetworkManager().fetchSongs(with: term) { (result) in

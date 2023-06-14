@@ -10,6 +10,7 @@ import Foundation
 protocol SearchRouterProtocol: AnyObject {
     static func createModule() -> SearchViewController
     func pushToSongDetail(with song: Song)
+    func goToSongDetail(forSong song: Song)
 }
 
 class SearchRouter: SearchRouterProtocol {
@@ -26,6 +27,11 @@ class SearchRouter: SearchRouterProtocol {
         router.view = view
 
         return view
+    }
+
+    func goToSongDetail(forSong song: Song) {
+        let songDetailViewController = DetailRouter.createModule(with: song)
+        view?.navigationController?.pushViewController(songDetailViewController, animated: true)
     }
 
     func pushToSongDetail(with song: Song) {

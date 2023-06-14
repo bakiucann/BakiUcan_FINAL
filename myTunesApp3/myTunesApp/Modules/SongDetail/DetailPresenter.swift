@@ -12,11 +12,10 @@ protocol DetailPresenterProtocol: AnyObject {
     var interactor: DetailInteractorInputProtocol? { get set }
     var router: DetailRouterProtocol? { get set }
     var song: Song? { get set }
-  func didTapPlayButton(for song: Song)
-  func didTapPauseButton(for song: Song)
-  func didTapFavoriteButton()
-  func didTapUnfavoriteButton()
-
+    func didTapPlayButton(for song: Song)
+    func didTapPauseButton(for song: Song)
+    func didTapFavoriteButton()
+    func didTapUnfavoriteButton()
     func viewDidLoad()
 
 }
@@ -26,8 +25,10 @@ class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
   var interactor: DetailInteractorInputProtocol?
   var router: DetailRouterProtocol?
   var song: Song?
+  var isFavorite: Bool = false
 
   func viewDidLoad() {
+    NotificationCenter.default.post(name: Notification.Name("SongStartedPlaying"), object: nil)
     if let song = song {
       view?.displaySongDetails(song)
       if let artworkURL = URL(string: song.artworkUrl100!) {
@@ -70,18 +71,17 @@ class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
       self.song = song
   }
   func didTapFavoriteButton() {
-    print("Favorite button tapped")
-
       guard let song = song else { return }
       interactor?.favoriteSong(song)
+      isFavorite = true
   }
 
   func didTapUnfavoriteButton() {
-    print("Unfavorite button tapped")
-
       guard let song = song else { return }
       interactor?.removeFavoriteSong(song)
+      isFavorite = false
   }
+
   func didTapPauseButton(for song: Song) {
       if self.song == song {
           interactor?.pauseSong(song)

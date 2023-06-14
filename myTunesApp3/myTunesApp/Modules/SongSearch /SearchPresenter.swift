@@ -8,12 +8,10 @@
 import Foundation
 import Loadable
 import AlertPresentable
-import AVFoundation
 
 protocol SearchPresenterProtocol: AnyObject {
     func viewDidLoad()
     func searchSong(with term: String)
-    func showSongDetail(forSong song: Song)
     func playButtonTapped(for song: Song, at indexPath: IndexPath)
     func songSelected(at indexPath: IndexPath)
     func song(for indexPath: IndexPath) -> Song?
@@ -27,18 +25,24 @@ class SearchPresenter: SearchPresenterProtocol {
     private let router: SearchRouterProtocol
     private var songs: [Song] = []
     private var nowPlayingIndexPath: IndexPath?
-    private var audioPlayer: AVPlayer?
-    private var currentPlaybackTime: CMTime?
 
     init(view: SearchViewProtocol, interactor: SearchInteractorInputProtocol, router: SearchRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSongStartedPlaying(_:)), name: Notification.Name("SongStartedPlaying"), object: nil)
     }
 
     func viewDidLoad() {
         view?.setupSearchController()
         view?.setupTableView()
+    }
+
+    @objc private func handleSongStartedPlaying(_ notification: Notification) {
+        if let nowPlayingIndexPath = nowPlayingIndexPath {
+            view?.updateButtonImage(at: nowPlayingIndexPath, to: "play.circle.fill")
+        }
+        nowPlayingIndexPath = nil
     }
 
     func searchSong(with term: String) {
@@ -49,28 +53,41 @@ class SearchPresenter: SearchPresenterProtocol {
     func numberOfSongs() -> Int {
         return songs.count
     }
-  func showNoResults() {
-      view?.showNoResults()
-  }
 
-  func showError(withMessage message: String) {
-      view?.showError(withMessage: message)
-  }
-    func showSongDetail(forSong song: Song) {
-        router.pushToSongDetail(with: song)
+    func showNoResults() {
+        view?.showNoResults()
+    }
+
+    func showError(withMessage message: String) {
+        view?.showError(withMessage: message)
     }
 
     func playButtonTapped(for song: Song, at indexPath: IndexPath) {
-      if let url = URL(string: song.previewUrl!) {
-            if nowPlayingIndexPath == indexPath {
-                pauseSong()
-                nowPlayingIndexPath = nil
+        if let url = URL(string: song.previewUrl!) {
+            if let nowPlayingIndexPath = nowPlayingIndexPath, nowPlayingIndexPath == indexPath {
+                if AudioPlayerService.shared.isPlaying {
+                    AudioPlayerService.shared.pause()
+                    view?.updateButtonImage(at: indexPath, to: "play.circle.fill")
+                } else {
+                    AudioPlayerService.shared.play(url: url)
+                    view?.updateButtonImage(at: indexPath, to: "pause.fill")
+                }
             } else {
-                playSong(url: url)
+                if let nowPlayingIndexPath = nowPlayingIndexPath {
+                    view?.updateButtonImage(at: nowPlayingIndexPath, to: "play.circle.fill")
+                }
+                AudioPlayerService.shared.play(url: url)
                 nowPlayingIndexPath = indexPath
+                view?.updateButtonImage(at: indexPath, to: "pause.fill")
             }
-            view?.reloadData()
         }
+    }
+
+    func isPlaying(for indexPath: IndexPath) -> Bool {
+        guard let nowPlayingIndexPath = nowPlayingIndexPath else {
+            return false
+        }
+        return indexPath == nowPlayingIndexPath && AudioPlayerService.shared.isPlaying
     }
 
     func song(for indexPath: IndexPath) -> Song? {
@@ -80,43 +97,24 @@ class SearchPresenter: SearchPresenterProtocol {
         return songs[indexPath.row]
     }
 
-    func isPlaying(for indexPath: IndexPath) -> Bool {
-        return indexPath == nowPlayingIndexPath
-    }
-
     func songSelected(at indexPath: IndexPath) {
         guard let song = song(for: indexPath) else {
             return
         }
-        showSongDetail(forSong: song)
-    }
-
-    private func playSong(url: URL) {
-        let playerItem = AVPlayerItem(url: url)
-        audioPlayer = AVPlayer(playerItem: playerItem)
-        if let time = currentPlaybackTime {
-            audioPlayer?.seek(to: time)
-        }
-        audioPlayer?.play()
-    }
-
-    private func pauseSong() {
-        audioPlayer?.pause()
-        currentPlaybackTime = audioPlayer?.currentTime()
+        router.goToSongDetail(forSong: song)
     }
 }
 
 extension SearchPresenter: SearchInteractorOutputProtocol {
-  func didRetrieveSongs(_ songs: [Song]) {
-      if songs.isEmpty {
-          view?.showNoResults()
-      } else {
-          self.songs = songs
-          view?.hideLoading()
-          view?.showSongs(with: songs)
-      }
-  }
-
+    func didRetrieveSongs(_ songs: [Song]) {
+        if songs.isEmpty {
+            view?.showNoResults()
+        } else {
+            self.songs = songs
+            view?.hideLoading()
+            view?.showSongs(with: songs)
+        }
+    }
 
     func onError() {
         view?.hideLoading()

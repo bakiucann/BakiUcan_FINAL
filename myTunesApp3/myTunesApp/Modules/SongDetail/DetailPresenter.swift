@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreText
 
 protocol DetailPresenterProtocol: AnyObject {
     var view: DetailViewProtocol? { get set }
@@ -17,6 +18,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func didTapFavoriteButton()
     func didTapUnfavoriteButton()
     func viewDidLoad()
+    func attributedString(for trackName: String) -> NSAttributedString
 }
 
 class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
@@ -57,7 +59,26 @@ class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
           }
       }
   }
+  func attributedString(for trackName: String) -> NSAttributedString {
+      let parts = trackName.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+      guard parts.count == 2 else {
+          return NSAttributedString(string: trackName)
+      }
 
+      let numberPart = String(parts[0])
+      let spacePart = "  "
+      let namePart = String(parts[1])
+
+      let numberAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
+      let spaceAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
+      let nameAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica-Bold" as CFString, 17, nil)]
+
+      let attributedString = NSMutableAttributedString(string: numberPart, attributes: numberAttributes)
+      attributedString.append(NSAttributedString(string: spacePart, attributes: spaceAttributes))
+      attributedString.append(NSAttributedString(string: namePart, attributes: nameAttributes))
+
+      return attributedString
+  }
 
   func didRetrieveAlbumSongs(_ songs: [Song]) {
       DispatchQueue.main.async {
@@ -104,3 +125,4 @@ extension Song: Equatable {
         return lhs.trackId == rhs.trackId
     }
 }
+

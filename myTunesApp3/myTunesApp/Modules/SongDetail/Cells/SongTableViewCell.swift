@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol SongTableViewCellDelegate: AnyObject {
+    func didTapPlayButton(on cell: SongTableViewCell)
+    func didTapPauseButton(on cell: SongTableViewCell)
+}
+
 class SongTableViewCell: UITableViewCell {
 
     static let identifier = "SongTableViewCell"
+
+    weak var delegate: SongTableViewCellDelegate?
 
     var playButtonAction: (() -> Void)?
     var pauseButtonAction: (() -> Void)?
@@ -96,36 +103,17 @@ class SongTableViewCell: UITableViewCell {
     @objc private func playButtonTapped() {
         isPlaying.toggle()
         if isPlaying {
-            playButtonAction?()
+            delegate?.didTapPlayButton(on: self)
         } else {
-            pauseButtonAction?()
+            delegate?.didTapPauseButton(on: self)
         }
     }
 
     @objc private func priceButtonTapped() {
     }
 
-  func configure(with trackName: String, duration: String, price: Double) {
-      let parts = trackName.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-      guard parts.count == 2 else {
-          self.trackLabel.text = trackName
-          return
-      }
-
-      let numberPart = String(parts[0])
-      let spacePart = "  "
-      let namePart = String(parts[1])
-
-      let numberAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: trackLabel.font.pointSize)]
-      let spaceAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: trackLabel.font.pointSize)]
-      let nameAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.boldSystemFont(ofSize: trackLabel.font.pointSize)]
-
-      let attributedString = NSMutableAttributedString(string: numberPart, attributes: numberAttributes)
-      attributedString.append(NSAttributedString(string: spacePart, attributes: spaceAttributes))
-      attributedString.append(NSAttributedString(string: namePart, attributes: nameAttributes))
-
+  func configure(with attributedString: NSAttributedString, duration: String, price: Double) {
       self.trackLabel.attributedText = attributedString
-
       durationLabel.text = duration
       let formattedPrice = String(format: "%.2f", price)
       priceButton.setTitle("$\(formattedPrice)", for: .normal)

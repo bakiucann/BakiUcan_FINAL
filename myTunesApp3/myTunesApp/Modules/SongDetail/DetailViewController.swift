@@ -211,36 +211,40 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return songsInAlbum.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
-        let song = songsInAlbum[indexPath.row]
-        let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
+      let song = songsInAlbum[indexPath.row]
+      let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
 
-        if let trackTimeMillis = song.trackTimeMillis {
-            let duration = durationFormatter.format(milliseconds: trackTimeMillis)
-            cell.configure(with: trackName, duration: duration, price: song.trackPrice ?? 0.0)
-        } else {
-            cell.configure(with: trackName, duration: "", price: song.trackPrice ?? 0.0)
-        }
+          cell.delegate = self
 
-        cell.isPlaying = song.trackId == currentlyPlayingSongId
+      let attributedString = presenter?.attributedString(for: trackName) ?? NSAttributedString(string: trackName)
 
-        cell.playButtonAction = { [weak self] in
-            self?.currentlyPlayingSongId = song.trackId
-            self?.tableView.reloadData()
-            self?.presenter?.didTapPlayButton(for: song)
-        }
+      if let trackTimeMillis = song.trackTimeMillis {
+          let duration = durationFormatter.format(milliseconds: trackTimeMillis)
+          cell.configure(with: attributedString, duration: duration, price: song.trackPrice ?? 0.0)
+      } else {
+          cell.configure(with: attributedString, duration: "", price: song.trackPrice ?? 0.0)
+      }
 
-        cell.pauseButtonAction = { [weak self] in
-            if self?.currentlyPlayingSongId == song.trackId {
-                self?.currentlyPlayingSongId = nil
-                self?.tableView.reloadData()
-            }
-            self?.presenter?.didTapPauseButton(for: song)
-        }
+      cell.isPlaying = song.trackId == currentlyPlayingSongId
 
-        return cell
-    }
+      cell.playButtonAction = { [weak self] in
+          self?.currentlyPlayingSongId = song.trackId
+          self?.tableView.reloadData()
+          self?.presenter?.didTapPlayButton(for: song)
+      }
+
+      cell.pauseButtonAction = { [weak self] in
+          if self?.currentlyPlayingSongId == song.trackId {
+              self?.currentlyPlayingSongId = nil
+              self?.tableView.reloadData()
+          }
+          self?.presenter?.didTapPauseButton(for: song)
+      }
+
+      return cell
+  }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
@@ -275,3 +279,22 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
 }
+extension DetailViewController: SongTableViewCellDelegate {
+    func didTapPlayButton(on cell: SongTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let song = songsInAlbum[indexPath.row]
+        currentlyPlayingSongId = song.trackId
+        tableView.reloadData()
+        presenter?.didTapPlayButton(for: song)
+    }
+
+    func didTapPauseButton(on cell: SongTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let song = songsInAlbum[indexPath.row]
+        if currentlyPlayingSongId == song.trackId {
+            currentlyPlayingSongId = nil
+            tableView.reloadData()
+        }
+        presenter?.didTapPauseButton(for: song)
+    }
+  }

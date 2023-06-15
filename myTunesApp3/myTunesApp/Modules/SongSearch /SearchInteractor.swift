@@ -20,6 +20,7 @@ protocol SearchInteractorOutputProtocol: AnyObject {
 class SearchInteractor: SearchInteractorInputProtocol {
     weak var presenter: SearchInteractorOutputProtocol?
 
+
     func searchSong(with term: String) {
         NetworkManager().fetchSongs(with: term) { (result) in
             switch result {

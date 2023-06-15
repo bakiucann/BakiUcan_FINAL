@@ -128,15 +128,18 @@ extension SearchViewController: UITableViewDataSource {
         return presenter?.numberOfSongs() ?? 0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
-        if let song = presenter?.song(for: indexPath) {
-            let isPlaying = presenter?.isPlaying(for: indexPath) ?? false
-            cell.configure(with: song, isPlaying: isPlaying)
-        }
-        cell.delegate = self
-        return cell
-    }
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
+      guard let presenter = presenter else {
+          return cell
+      }
+      if let song = presenter.song(for: indexPath) {
+        let isPlaying = presenter.isPlaying(for: indexPath)
+          cell.configure(with: song, presenter: presenter, isPlaying: isPlaying)
+      }
+      cell.delegate = self
+      return cell
+  }
 
 }
 

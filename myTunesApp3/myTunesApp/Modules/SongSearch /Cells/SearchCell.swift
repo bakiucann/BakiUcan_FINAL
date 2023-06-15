@@ -95,29 +95,24 @@ class SearchCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with song: Song, isPlaying: Bool) {
-        self.trackNameLabel.text = song.trackName
-        self.artistNameLabel.text = song.artistName
-        let imageName = isPlaying ? "pause.fill" : "play.circle.fill"
-        let image = UIImage(systemName: imageName)
-        playButton.setImage(image, for: .normal)
+  func configure(with song: Song, presenter: SearchPresenterProtocol, isPlaying: Bool) {
+      self.trackNameLabel.text = song.trackName
+      self.artistNameLabel.text = song.artistName
+      self.albumNameLabel.text = presenter.albumName(for: song)
+      playButton.setImage(UIImage(systemName: presenter.playButtonSystemImageName(for: song, isPlaying: isPlaying)), for: .normal)
 
-        if let albumName = song.collectionName {
-            self.albumNameLabel.text = "Album: \(albumName)"
-        } else {
-            self.albumNameLabel.text = "Album: Unknown"
-        }
 
-        if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
-            URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self.artworkImageView.image = UIImage(data: data)
-                    }
+    if let artworkUrl = presenter.artworkUrl(for: song) {
+        URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
+            if let data = data {
+                DispatchQueue.main.async {
+                    self.artworkImageView.image = UIImage(data: data)
                 }
-            }.resume()
-        }
+            }
+        }.resume()
     }
+  }
+
 
     @objc private func didTapPlayButton() {
         delegate?.didTapPlayButton(in: self)

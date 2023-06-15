@@ -5,6 +5,7 @@
 //  Created by Baki Uçan on 6.06.2023.
 //
 
+import UIKit
 import Foundation
 import Loadable
 import AlertPresentable
@@ -19,6 +20,9 @@ protocol SearchPresenterProtocol: AnyObject {
     func song(for indexPath: IndexPath) -> Song?
     func isPlaying(for indexPath: IndexPath) -> Bool
     func numberOfSongs() -> Int
+    func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String
+  func artworkUrl(for song: Song) -> URL?
+    func albumName(for song: Song) -> String
 }
 
 class SearchPresenter: SearchPresenterProtocol {
@@ -84,6 +88,25 @@ class SearchPresenter: SearchPresenterProtocol {
             }
         }
     }
+  func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String {
+      return isPlaying ? "pause.fill" : "play.circle.fill"
+  }
+
+
+  func albumName(for song: Song) -> String {
+      if let albumName = song.collectionName {
+          return "Album: \(albumName)"
+      } else {
+          return "Album: Unknown"
+      }
+  }
+
+  func artworkUrl(for song: Song) -> URL? {
+      if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
+          return artworkUrl
+      }
+      return nil
+  }
 
     func isPlaying(for indexPath: IndexPath) -> Bool {
         guard let nowPlayingIndexPath = nowPlayingIndexPath else {

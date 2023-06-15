@@ -17,7 +17,6 @@ protocol DetailPresenterProtocol: AnyObject {
     func didTapFavoriteButton()
     func didTapUnfavoriteButton()
     func viewDidLoad()
-
 }
 
 class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {

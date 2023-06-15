@@ -21,17 +21,10 @@ protocol DetailViewProtocol: AnyObject, AlertPresentable {
 }
 
 class DetailViewController: UIViewController, DetailViewProtocol {
+    var presenter: DetailPresenterProtocol?
     var songsInAlbum: [Song] = []
     var durationFormatter: DurationFormatter = DefaultDurationFormatter()
     var currentlyPlayingSongId: Int?
-
-  func displayAlbumSongs(_ songs: [Song]) {
-      self.songsInAlbum = songs.filter { $0.kind == "song" }.sorted { $0.trackId ?? 0 < $1.trackId ?? 0 }
-      currentlyPlayingSongId = nil 
-      self.tableView.reloadData()
-  }
-
-    var presenter: DetailPresenterProtocol?
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -70,18 +63,17 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         return label
     }()
 
-  private let collectionPriceLabel: UIButton = {
-      let button = UIButton(type: .system)
-      button.translatesAutoresizingMaskIntoConstraints = false
-      button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-      button.setTitleColor(.gray, for: .normal)
-      button.layer.borderWidth = 1
-      button.layer.borderColor = UIColor.systemPink.cgColor
-      button.layer.cornerRadius = 5
-      button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
-      return button
-  }()
-
+    private let collectionPriceLabel: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.setTitleColor(.gray, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemPink.cgColor
+        button.layer.cornerRadius = 5
+        button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,40 +83,40 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         presenter?.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .systemPink
         let favoriteButton = UIBarButtonItem(
-          image: UIImage(systemName: "heart"),
-          style: .plain,
-          target: self,
-          action: #selector(favoriteButtonTapped)
+            image: UIImage(systemName: "heart"),
+            style: .plain,
+            target: self,
+            action: #selector(favoriteButtonTapped)
         )
         navigationItem.rightBarButtonItem = favoriteButton
-      if let song = presenter?.song, song.isFavorite {
-          navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
-      } else {
-          navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
-      }
+        if let song = presenter?.song, song.isFavorite {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
+        } else {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
+        }
+    }
 
-  }
-  @objc func favoriteButtonTapped() {
-      guard let song = presenter?.song else { return }
-      let isFavorite = song.isFavorite
+    @objc func favoriteButtonTapped() {
+        guard let song = presenter?.song else { return }
+        let isFavorite = song.isFavorite
 
-      if isFavorite {
-          let confirmAction: () -> Void = { [weak self] in
-              self?.presenter?.didTapUnfavoriteButton()
-              self?.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
-          }
+        if isFavorite {
+            let confirmAction: () -> Void = { [weak self] in
+                self?.presenter?.didTapUnfavoriteButton()
+                self?.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
+            }
 
-          let cancelAction: () -> Void = {
-              // Do nothing
-          }
+            let cancelAction: () -> Void = {
+                // Do nothing
+            }
 
-          let message = "Remove from favorites?"
-          showConfirmationAlert(with: message, confirmAction: confirmAction, cancelAction: cancelAction)
-      } else {
-          presenter?.didTapFavoriteButton()
-          navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
-      }
-  }
+            let message = "Remove from favorites?"
+            showConfirmationAlert(with: message, confirmAction: confirmAction, cancelAction: cancelAction)
+        } else {
+            presenter?.didTapFavoriteButton()
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
+        }
+    }
 
     func displaySongDetails(_ song: Song) {
         self.titleLabel.text = song.trackName
@@ -132,29 +124,38 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         self.genreLabel.text = song.primaryGenreName
     }
 
-  func displayCollectionPrice(_ price: Double) {
-      let formattedPrice = String(format: "%.2f", price)
-      collectionPriceLabel.setTitle("Album Price: $\(formattedPrice)", for: .normal)
-  }
+    func displayCollectionPrice(_ price: Double) {
+        let formattedPrice = String(format: "%.2f", price)
+        collectionPriceLabel.setTitle("Album Price: $\(formattedPrice)", for: .normal)
+    }
 
     func displayArtwork(_ image: UIImage) {
         hideLoading()
         self.artworkImageView.image = image
     }
-  func getArtworkImageView() -> UIImageView? {
-      return artworkImageView
-  }
-  func showConfirmationAlert(with message: String, confirmAction: @escaping () -> Void, cancelAction: @escaping () -> Void) {
-      let alertController = UIAlertController(title: "Confirmation", message: message, preferredStyle: .alert)
-      let confirm = UIAlertAction(title: "OK", style: .default) { _ in confirmAction() }
-      let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in cancelAction() }
-      alertController.addAction(confirm)
-      alertController.addAction(cancel)
-      present(alertController, animated: true, completion: nil)
-  }
+
+    func getArtworkImageView() -> UIImageView? {
+        return artworkImageView
+    }
+
+    func showConfirmationAlert(with message: String, confirmAction: @escaping () -> Void, cancelAction: @escaping () -> Void) {
+        let alertController = UIAlertController(title: "Confirmation", message: message, preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "OK", style: .default) { _ in confirmAction() }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in cancelAction() }
+        alertController.addAction(confirm)
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
+    }
+
     func displayPlaceholderArtwork() {
         hideLoading()
         self.artworkImageView.image = UIImage(named: "placeholder")
+    }
+
+    func displayAlbumSongs(_ songs: [Song]) {
+        self.songsInAlbum = songs.filter { $0.kind == "song" }.sorted { $0.trackId ?? 0 < $1.trackId ?? 0 }
+        currentlyPlayingSongId = nil
+        self.tableView.reloadData()
     }
 
   private func setupViews() {
@@ -203,7 +204,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
           tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16)
       ])
   }
-
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -211,86 +211,62 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return songsInAlbum.count
     }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
-      let song = songsInAlbum[indexPath.row]
-    let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
+        let song = songsInAlbum[indexPath.row]
+        let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
 
-      if let trackTimeMillis = song.trackTimeMillis {
-          let duration = durationFormatter.format(milliseconds: trackTimeMillis)
-          cell.configure(with: trackName, duration: duration, price: song.trackPrice ?? 0.0)
-      } else {
-          cell.configure(with: trackName, duration: "", price: song.trackPrice ?? 0.0)
-      }
+        if let trackTimeMillis = song.trackTimeMillis {
+            let duration = durationFormatter.format(milliseconds: trackTimeMillis)
+            cell.configure(with: trackName, duration: duration, price: song.trackPrice ?? 0.0)
+        } else {
+            cell.configure(with: trackName, duration: "", price: song.trackPrice ?? 0.0)
+        }
 
-      cell.isPlaying = song.trackId == currentlyPlayingSongId
+        cell.isPlaying = song.trackId == currentlyPlayingSongId
 
-      cell.playButtonAction = { [weak self] in
-          self?.currentlyPlayingSongId = song.trackId
-          self?.tableView.reloadData()
-          self?.presenter?.didTapPlayButton(for: song)
-      }
+        cell.playButtonAction = { [weak self] in
+            self?.currentlyPlayingSongId = song.trackId
+            self?.tableView.reloadData()
+            self?.presenter?.didTapPlayButton(for: song)
+        }
 
-      cell.pauseButtonAction = { [weak self] in
-          if self?.currentlyPlayingSongId == song.trackId {
-              self?.currentlyPlayingSongId = nil
-              self?.tableView.reloadData()
-          }
-          self?.presenter?.didTapPauseButton(for: song)
-      }
+        cell.pauseButtonAction = { [weak self] in
+            if self?.currentlyPlayingSongId == song.trackId {
+                self?.currentlyPlayingSongId = nil
+                self?.tableView.reloadData()
+            }
+            self?.presenter?.didTapPauseButton(for: song)
+        }
 
-      return cell
-  }
-
+        return cell
+    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = .white
 
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        nameLabel.textColor = .lightGray
-        nameLabel.text = "            " + "NAME"
-
-        let durationLabel = UILabel()
-        durationLabel.translatesAutoresizingMaskIntoConstraints = false
-        durationLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        durationLabel.textColor = .lightGray
-        durationLabel.text = "DURATION"
-
-        let popularityLabel = UILabel()
-        popularityLabel.translatesAutoresizingMaskIntoConstraints = false
-        popularityLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        popularityLabel.textColor = .lightGray
-        popularityLabel.text = "LISTEN"
-
-        let priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        priceLabel.textColor = .lightGray
-        priceLabel.text = "PRICE"
-
-        headerView.addSubview(nameLabel)
-        headerView.addSubview(durationLabel)
-        headerView.addSubview(popularityLabel)
-        headerView.addSubview(priceLabel)
-
+        let leadingSpace: CGFloat = 51
+        let labels = ["NAME", "DURATION", "LISTEN", "PRICE"]
+        let labelWidths: [CGFloat] = [32, 368, 455, 520]
         let padding: CGFloat = 16
-        NSLayoutConstraint.activate([
-            nameLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
-            nameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
 
-            durationLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: padding),
-            durationLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+        for (index, labelText) in labels.enumerated() {
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = UIFont.boldSystemFont(ofSize: 10)
+            label.textColor = .lightGray
+            label.textAlignment = .center
+            label.text = labelText
 
-            popularityLabel.leadingAnchor.constraint(equalTo: durationLabel.trailingAnchor, constant: padding),
-            popularityLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            headerView.addSubview(label)
 
-            priceLabel.leadingAnchor.constraint(equalTo: popularityLabel.trailingAnchor, constant: padding),
-            priceLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
-            priceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
-        ])
+            NSLayoutConstraint.activate([
+                label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: leadingSpace + padding * CGFloat(index)),
+                label.widthAnchor.constraint(equalToConstant: labelWidths[index]),
+                label.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            ])
+        }
 
         return headerView
     }

@@ -10,6 +10,8 @@ import Loadable
 import AlertPresentable
 
 protocol SearchPresenterProtocol: AnyObject {
+    var view: SearchViewProtocol? { get set }
+    var router: SearchRouterProtocol? { get set }
     func viewDidLoad()
     func searchSong(with term: String)
     func playButtonTapped(for song: Song, at indexPath: IndexPath)
@@ -21,10 +23,10 @@ protocol SearchPresenterProtocol: AnyObject {
 
 class SearchPresenter: SearchPresenterProtocol {
     weak var view: SearchViewProtocol?
-    private let interactor: SearchInteractorInputProtocol
-    private let router: SearchRouterProtocol
+    var router: SearchRouterProtocol?
     private var songs: [Song] = []
     private var nowPlayingIndexPath: IndexPath?
+    private let interactor: SearchInteractorInputProtocol
 
     init(view: SearchViewProtocol, interactor: SearchInteractorInputProtocol, router: SearchRouterProtocol) {
         self.view = view
@@ -101,7 +103,7 @@ class SearchPresenter: SearchPresenterProtocol {
         guard let song = song(for: indexPath) else {
             return
         }
-        router.goToSongDetail(forSong: song)
+        router?.goToSongDetail(forSong: song)
     }
 }
 

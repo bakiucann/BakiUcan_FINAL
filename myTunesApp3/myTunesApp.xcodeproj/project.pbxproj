@@ -18,34 +18,18 @@
 		2D4F356C2A2E8FAC00CE124E /* myTunesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F356B2A2E8FAC00CE124E /* myTunesAppUITests.swift */; };
 		2D4F356E2A2E8FAC00CE124E /* myTunesAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F356D2A2E8FAC00CE124E /* myTunesAppUITestsLaunchTests.swift */; };
 		2D4F35862A2E915C00CE124E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35842A2E915C00CE124E /* SplashViewController.swift */; };
-		2D4F35872A2E915C00CE124E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35842A2E915C00CE124E /* SplashViewController.swift */; };
-		2D4F35882A2E915C00CE124E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35842A2E915C00CE124E /* SplashViewController.swift */; };
 		2D4F35892A2E915C00CE124E /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D4F35852A2E915C00CE124E /* SplashViewController.xib */; };
 		2D4F358A2A2E915C00CE124E /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D4F35852A2E915C00CE124E /* SplashViewController.xib */; };
 		2D4F358B2A2E915C00CE124E /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D4F35852A2E915C00CE124E /* SplashViewController.xib */; };
 		2D4F358E2A2E917D00CE124E /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F358D2A2E917D00CE124E /* SplashInteractor.swift */; };
-		2D4F358F2A2E917D00CE124E /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F358D2A2E917D00CE124E /* SplashInteractor.swift */; };
-		2D4F35902A2E917D00CE124E /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F358D2A2E917D00CE124E /* SplashInteractor.swift */; };
 		2D4F35922A2E918600CE124E /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35912A2E918600CE124E /* SplashPresenter.swift */; };
-		2D4F35932A2E918600CE124E /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35912A2E918600CE124E /* SplashPresenter.swift */; };
-		2D4F35942A2E918600CE124E /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35912A2E918600CE124E /* SplashPresenter.swift */; };
 		2D4F35962A2E918D00CE124E /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35952A2E918D00CE124E /* SplashRouter.swift */; };
 		2D4F359E2A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
-		2D4F359F2A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
-		2D4F35A02A2E954A00CE124E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F359D2A2E954A00CE124E /* NetworkManager.swift */; };
 		2D4F35A72A2E978D00CE124E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35A62A2E978D00CE124E /* CoreDataManager.swift */; };
-		2D4F35A82A2E978D00CE124E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35A62A2E978D00CE124E /* CoreDataManager.swift */; };
-		2D4F35A92A2E978D00CE124E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35A62A2E978D00CE124E /* CoreDataManager.swift */; };
 		2D4F35AB2A2E9B7900CE124E /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AA2A2E9B7900CE124E /* DurationFormatter.swift */; };
-		2D4F35AC2A2E9B7900CE124E /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AA2A2E9B7900CE124E /* DurationFormatter.swift */; };
-		2D4F35AD2A2E9B7900CE124E /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AA2A2E9B7900CE124E /* DurationFormatter.swift */; };
 		2D4F35AF2A2E9B8700CE124E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AE2A2E9B8700CE124E /* UIImage+Extension.swift */; };
-		2D4F35B02A2E9B8700CE124E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AE2A2E9B8700CE124E /* UIImage+Extension.swift */; };
-		2D4F35B12A2E9B8700CE124E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35AE2A2E9B8700CE124E /* UIImage+Extension.swift */; };
 		2D4F35B52A2EC25200CE124E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B42A2EC25200CE124E /* SearchViewController.swift */; };
 		2D4F35B92A2EC26C00CE124E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B82A2EC26C00CE124E /* SearchInteractor.swift */; };
-		2D4F35BA2A2EC26C00CE124E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B82A2EC26C00CE124E /* SearchInteractor.swift */; };
-		2D4F35BB2A2EC26C00CE124E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35B82A2EC26C00CE124E /* SearchInteractor.swift */; };
 		2D4F35BD2A2EC27A00CE124E /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35BC2A2EC27A00CE124E /* SearchPresenter.swift */; };
 		2D4F35C12A2EC28400CE124E /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C02A2EC28400CE124E /* SearchRouter.swift */; };
 		2D4F35C52A2F683400CE124E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C42A2F683400CE124E /* DetailViewController.swift */; };
@@ -540,15 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D4F359F2A2E954A00CE124E /* NetworkManager.swift in Sources */,
-				2D4F35AC2A2E9B7900CE124E /* DurationFormatter.swift in Sources */,
-				2D4F35B02A2E9B8700CE124E /* UIImage+Extension.swift in Sources */,
 				2D4F35622A2E8FAC00CE124E /* myTunesAppTests.swift in Sources */,
-				2D4F358F2A2E917D00CE124E /* SplashInteractor.swift in Sources */,
-				2D4F35BA2A2EC26C00CE124E /* SearchInteractor.swift in Sources */,
-				2D4F35872A2E915C00CE124E /* SplashViewController.swift in Sources */,
-				2D4F35A82A2E978D00CE124E /* CoreDataManager.swift in Sources */,
-				2D4F35932A2E918600CE124E /* SplashPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,16 +532,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D4F35882A2E915C00CE124E /* SplashViewController.swift in Sources */,
-				2D4F35942A2E918600CE124E /* SplashPresenter.swift in Sources */,
-				2D4F35A02A2E954A00CE124E /* NetworkManager.swift in Sources */,
 				2D4F356E2A2E8FAC00CE124E /* myTunesAppUITestsLaunchTests.swift in Sources */,
-				2D4F35BB2A2EC26C00CE124E /* SearchInteractor.swift in Sources */,
 				2D4F356C2A2E8FAC00CE124E /* myTunesAppUITests.swift in Sources */,
-				2D4F35AD2A2E9B7900CE124E /* DurationFormatter.swift in Sources */,
-				2D4F35B12A2E9B8700CE124E /* UIImage+Extension.swift in Sources */,
-				2D4F35A92A2E978D00CE124E /* CoreDataManager.swift in Sources */,
-				2D4F35902A2E917D00CE124E /* SplashInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

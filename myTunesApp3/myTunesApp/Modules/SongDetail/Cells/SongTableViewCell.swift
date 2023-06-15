@@ -31,7 +31,8 @@ class SongTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-      button.tintColor = .systemPink
+        button.tintColor = .systemPink
+        button.accessibilityIdentifier = "detailPlayButton"
         return button
     }()
 

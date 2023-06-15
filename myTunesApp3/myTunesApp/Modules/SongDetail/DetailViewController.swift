@@ -29,6 +29,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+      tableView.accessibilityIdentifier = "detailTableView"
         return tableView
     }()
 
@@ -88,6 +89,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             target: self,
             action: #selector(favoriteButtonTapped)
         )
+        favoriteButton.accessibilityIdentifier = "favoriteButton"
         navigationItem.rightBarButtonItem = favoriteButton
         if let song = presenter?.song, song.isFavorite {
             navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
@@ -213,6 +215,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
+      cell.accessibilityIdentifier = "songCell_\(indexPath.row)"
       let song = songsInAlbum[indexPath.row]
       let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
 

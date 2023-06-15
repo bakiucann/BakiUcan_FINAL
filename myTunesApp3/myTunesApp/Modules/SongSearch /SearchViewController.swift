@@ -32,6 +32,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
+        tableView.accessibilityIdentifier = "searchTableView"
         return tableView
     }()
 
@@ -39,6 +40,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         let imageView = UIImageView(image: UIImage(systemName: "music.quarternote.3"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .systemPink
+      imageView.accessibilityIdentifier = "logoImageView"
         return imageView
     }()
 
@@ -49,6 +51,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         label.textAlignment = .center
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 24)
+        label.accessibilityIdentifier = "relatedLabel"
         return label
     }()
 
@@ -57,6 +60,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         view.backgroundColor = .white
         presenter?.viewDidLoad()
         self.title = "iTunes Search"
+        setupSearchController()
         setupTableView()
         setupLogoImageView()
         setupRelatedLabel()
@@ -84,6 +88,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
             self.navigationItem.searchController = self.searchController
             self.searchController.obscuresBackgroundDuringPresentation = false
             self.searchController.searchBar.delegate = self
+            self.searchController.searchBar.accessibilityIdentifier = "searchBar"
         }
     }
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2D0291922A3A5F300054165F /* AudioPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0291912A3A5F300054165F /* AudioPlayer+Extension.swift */; };
-		2D0291972A3B64450054165F /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0291962A3B64450054165F /* FontProvider.swift */; };
 		2D060EA72A361478004139E3 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D060EA62A361478004139E3 /* SongTableViewCell.swift */; };
 		2D4F35482A2E8FAA00CE124E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35472A2E8FAA00CE124E /* AppDelegate.swift */; };
 		2D4F354A2A2E8FAA00CE124E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35492A2E8FAA00CE124E /* SceneDelegate.swift */; };
@@ -65,7 +64,6 @@
 
 /* Begin PBXFileReference section */
 		2D0291912A3A5F300054165F /* AudioPlayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioPlayer+Extension.swift"; sourceTree = "<group>"; };
-		2D0291962A3B64450054165F /* FontProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProvider.swift; sourceTree = "<group>"; };
 		2D060EA62A361478004139E3 /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		2D4F35442A2E8FAA00CE124E /* myTunesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myTunesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4F35472A2E8FAA00CE124E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				2D4F35D02A2F6B6300CE124E /* DetailInteractor.swift */,
 				2D4F35C82A2F6A1600CE124E /* DetailPresenter.swift */,
 				2D4F35CC2A2F6A9C00CE124E /* DetailRouter.swift */,
-				2D0291962A3B64450054165F /* FontProvider.swift */,
 			);
 			path = SongDetail;
 			sourceTree = "<group>";
@@ -497,7 +494,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D4F35962A2E918D00CE124E /* SplashRouter.swift in Sources */,
-				2D0291972A3B64450054165F /* FontProvider.swift in Sources */,
 				2D4F35922A2E918600CE124E /* SplashPresenter.swift in Sources */,
 				2D4F358E2A2E917D00CE124E /* SplashInteractor.swift in Sources */,
 				2D4F35B92A2EC26C00CE124E /* SearchInteractor.swift in Sources */,

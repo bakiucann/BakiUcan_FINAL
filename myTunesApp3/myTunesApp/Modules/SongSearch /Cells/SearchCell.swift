@@ -22,6 +22,7 @@ class SearchCell: UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "trackNameLabel"
         return label
     }()
 
@@ -29,6 +30,7 @@ class SearchCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "artworkImageView"
         return imageView
     }()
 
@@ -37,6 +39,8 @@ class SearchCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "artistNameLabel"
+
         return label
     }()
 
@@ -45,6 +49,7 @@ class SearchCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "albumNameLabel"
         return label
     }()
 
@@ -54,6 +59,7 @@ class SearchCell: UITableViewCell {
         button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
         button.tintColor = .systemPink
         button.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        button.accessibilityIdentifier = "searchPlayButton"
         return button
     }()
 

@@ -21,7 +21,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func isPlaying(for indexPath: IndexPath) -> Bool
     func numberOfSongs() -> Int
     func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String
-  func artworkUrl(for song: Song) -> URL?
+    func artworkUrl(for song: Song) -> URL?
     func albumName(for song: Song) -> String
 }
 
@@ -42,6 +42,7 @@ class SearchPresenter: SearchPresenterProtocol {
     func viewDidLoad() {
         view?.setupSearchController()
         view?.setupTableView()
+      
     }
 
     @objc private func handleSongStartedPlaying(_ notification: Notification) {

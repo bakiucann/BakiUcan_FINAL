@@ -61,8 +61,10 @@ Here are some screenshots and video walkthroughs of the application in action:
 
 For a more interactive overview, check out these video demos:
 
-- [Demo Video 1](demo_video_link1) <!--Replace `demo_video_link1` with the link of your first demo video -->
-- [Demo Video 2](demo_video_link2) <!--Replace `demo_video_link2` with the link of your second demo video -->
+
+
+https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/fdcfc214-3cb9-40cb-a929-facd3f6da836
+
 
 ## Contributing
 

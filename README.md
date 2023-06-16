@@ -66,7 +66,7 @@ For a more interactive overview, check out these video demos:
 
 ## Contributing
 
-The project is developed and maintained by `Baki Uçan`. If you would like to contribute or have any questions, please reach out at `your-email@example.com`.
+The project is developed and maintained by `Baki Uçan`. If you would like to contribute or have any questions, please reach out at on GitHub.
 
 ## License
 

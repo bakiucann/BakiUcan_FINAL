@@ -1,13 +1,12 @@
 # BakiUcan_FINAL
 # myTunesApp
 
-![myTunesApp Logo](logo_link) <!--Replace `logo_link` with the link of your logo image -->
+<img width="250" alt="mytunes" src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/e2d4ef20-035c-48f2-b421-35645d67e55e">
 
 `myTunesApp` is a highly dynamic and user-friendly music search application crafted in Swift. The application permits users to search for their beloved songs and include them in their favorite list. This application exhibits a well-structured VIPER (View-Interactor-Presenter-Entity-Router) architecture to ensure an organized, maintainable, and testable codebase.
 
 ## Features
 
-![Features](features_image_link) <!--Replace `features_image_link` with the link of your features image -->
 
 **1. Song Search:** Enables users to explore their favorite tracks using the search functionality.
 
@@ -55,8 +54,11 @@ Follow the steps below to setup this project locally:
 
 Here are some screenshots and video walkthroughs of the application in action:
 
-![Screenshot1](screenshot_link1) <!--Replace `screenshot_link1` with the link of your first screenshot -->
-![Screenshot2](screenshot_link2) <!--Replace `screenshot_link2` with the link of your second screenshot -->
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/bbdd064b-a065-47f0-af58-7d779aa80747" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/7c8c21ae-20c6-4d88-a3d7-7fbbde882027" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/436385f3-aa6e-497f-a1b2-3fc2235f4704" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/577f0913-e047-4eae-9165-84f07b461ea8" width="200" />
+
 
 For a more interactive overview, check out these video demos:
 

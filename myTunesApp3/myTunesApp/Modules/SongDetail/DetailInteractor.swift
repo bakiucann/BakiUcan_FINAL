@@ -40,44 +40,45 @@ class DetailInteractor: DetailInteractorInputProtocol {
         self.networkManager = networkManager
     }
 
-  func loadArtwork(from url: URL) {
-      URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-          if let error = error {
-              self?.presenter?.didFailToRetrieveArtwork(error)
-          } else if let data = data {
-              self?.presenter?.didRetrieveArtwork(data)
-          }
-      }.resume()
-  }
-
-  func playSong(_ song: Song) {
-      guard let urlString = song.previewUrl, let url = URL(string: urlString) else {
-          return
-      }
-
-      AudioPlayerService.shared.play(url: url)
-  }
-
-  func pauseSong(_ song: Song) {
-      AudioPlayerService.shared.pause()
-  }
-
-  func favoriteSong(_ song: Song) {
-      let favoriteSong = FavoriteSong(context: CoreDataManager.shared.context)
-      favoriteSong.isFavorite = true
-      favoriteSong.artistName = song.artistName
-      favoriteSong.artworkUrl100 = song.artworkUrl100
-      favoriteSong.trackId = Int32(song.trackId ?? 0)
-    do {
-        try CoreDataManager.shared.saveContext()
-    } catch {
+    func loadArtwork(from url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            if let error = error {
+                self?.presenter?.didFailToRetrieveArtwork(error)
+            } else if let data = data {
+                self?.presenter?.didRetrieveArtwork(data)
+            }
+        }.resume()
     }
 
-  }
+    func playSong(_ song: Song) {
+        guard let urlString = song.previewUrl, let url = URL(string: urlString) else {
+            return
+        }
 
-  func removeFavoriteSong(_ song: Song) {
-      let fetchRequest: NSFetchRequest<FavoriteSong> = FavoriteSong.fetchRequest()
-          fetchRequest.predicate = NSPredicate(format: "trackId = %d", song.trackId ?? 0)
+        AudioPlayerService.shared.play(url: url)
+    }
+
+    func pauseSong(_ song: Song) {
+        AudioPlayerService.shared.pause()
+    }
+
+    func favoriteSong(_ song: Song) {
+        let favoriteSong = FavoriteSong(context: CoreDataManager.shared.context)
+        favoriteSong.isFavorite = true
+        favoriteSong.artistName = song.artistName
+        favoriteSong.artworkUrl100 = song.artworkUrl100
+        favoriteSong.trackId = Int32(song.trackId ?? 0)
+        do {
+            try CoreDataManager.shared.saveContext()
+        } catch {
+            // Handle error
+        }
+
+    }
+
+    func removeFavoriteSong(_ song: Song) {
+        let fetchRequest: NSFetchRequest<FavoriteSong> = FavoriteSong.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "trackId = %d", song.trackId ?? 0)
         do {
             let favoriteSongs = try CoreDataManager.shared.context.fetch(fetchRequest)
             for favoriteSong in favoriteSongs {
@@ -85,18 +86,18 @@ class DetailInteractor: DetailInteractorInputProtocol {
             }
             try CoreDataManager.shared.saveContext()
         } catch {
-      }
+            // Handle error
+        }
     }
 
-  func loadSongsInAlbum(collectionId: Int) {
-      networkManager.fetchSongsInAlbum(with: collectionId) { [weak self] (result) in
-          switch result {
-          case .success(let songs):
-              self?.presenter?.didRetrieveAlbumSongs(songs)
-          case .failure(let error):
-              self?.presenter?.didFailToRetrieveAlbumSongs(error)
-          }
-      }
-   }
+    func loadSongsInAlbum(collectionId: Int) {
+        networkManager.fetchSongsInAlbum(with: collectionId) { [weak self] (result) in
+            switch result {
+            case .success(let songs):
+                self?.presenter?.didRetrieveAlbumSongs(songs)
+            case .failure(let error):
+                self?.presenter?.didFailToRetrieveAlbumSongs(error)
+            }
+        }
+    }
 }
-

@@ -12,12 +12,14 @@ protocol DetailRouterProtocol: AnyObject {
 }
 
 class DetailRouter: DetailRouterProtocol {
+    // MARK: - Static Method
     static func createModule(with song: Song) -> DetailViewController {
         let view = DetailViewController()
         let presenter = DetailPresenter()
         let interactor = DetailInteractor()
         let router = DetailRouter()
 
+        // Connect modules
         view.presenter = presenter
         presenter.view = view
         presenter.router = router

@@ -7,23 +7,35 @@
 
 import Foundation
 
+// MARK: - SearchInteractorInputProtocol
+
 protocol SearchInteractorInputProtocol: AnyObject {
     var presenter: SearchInteractorOutputProtocol? { get set }
     func searchSong(with term: String)
 }
+
+// MARK: - SearchInteractorOutputProtocol
 
 protocol SearchInteractorOutputProtocol: AnyObject {
     func didRetrieveSongs(_ songs: [Song])
     func onError()
 }
 
+// MARK: - SearchInteractor
+
 class SearchInteractor: SearchInteractorInputProtocol {
+    // MARK: Properties
+
     weak var presenter: SearchInteractorOutputProtocol?
     private let networkManager: NetworkManagerProtocol
+
+    // MARK: Initialization
 
     init(networkManager: NetworkManagerProtocol = NetworkManager()) {
         self.networkManager = networkManager
     }
+
+    // MARK: Public Methods
 
     func searchSong(with term: String) {
         networkManager.fetchSongs(with: term) { (result) in

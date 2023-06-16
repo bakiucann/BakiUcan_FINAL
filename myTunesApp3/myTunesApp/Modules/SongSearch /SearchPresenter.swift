@@ -10,9 +10,16 @@ import Foundation
 import Loadable
 import AlertPresentable
 
+// MARK: - SearchPresenterProtocol
+
 protocol SearchPresenterProtocol: AnyObject {
+    // MARK: Properties
+
     var view: SearchViewProtocol? { get set }
     var router: SearchRouterProtocol? { get set }
+
+    // MARK: Methods
+
     func viewDidLoad()
     func searchSong(with term: String)
     func playButtonTapped(for song: Song, at indexPath: IndexPath)
@@ -24,15 +31,20 @@ protocol SearchPresenterProtocol: AnyObject {
     func artworkUrl(for song: Song) -> URL?
     func albumName(for song: Song) -> String
     func didRetrieveSongs(_ songs: [Song])
-
 }
 
+// MARK: - SearchPresenter
+
 class SearchPresenter: SearchPresenterProtocol {
+    // MARK: Properties
+
     weak var view: SearchViewProtocol?
     var router: SearchRouterProtocol?
     private var songs: [Song] = []
     private var nowPlayingIndexPath: IndexPath?
     private let interactor: SearchInteractorInputProtocol
+
+    // MARK: Initialization
 
     init(view: SearchViewProtocol, interactor: SearchInteractorInputProtocol, router: SearchRouterProtocol) {
         self.view = view
@@ -41,17 +53,11 @@ class SearchPresenter: SearchPresenterProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(handleSongStartedPlaying(_:)), name: Notification.Name("SongStartedPlaying"), object: nil)
     }
 
+    // MARK: Public Methods
+
     func viewDidLoad() {
         view?.setupSearchController()
         view?.setupTableView()
-      
-    }
-
-    @objc private func handleSongStartedPlaying(_ notification: Notification) {
-        if let nowPlayingIndexPath = nowPlayingIndexPath {
-            view?.updateButtonImage(at: nowPlayingIndexPath, to: "play.circle.fill")
-        }
-        nowPlayingIndexPath = nil
     }
 
     func searchSong(with term: String) {
@@ -61,14 +67,6 @@ class SearchPresenter: SearchPresenterProtocol {
 
     func numberOfSongs() -> Int {
         return songs.count
-    }
-
-    func showNoResults() {
-        view?.showNoResults()
-    }
-
-    func showError(withMessage message: String) {
-        view?.showError(withMessage: message)
     }
 
     func playButtonTapped(for song: Song, at indexPath: IndexPath) {
@@ -91,25 +89,25 @@ class SearchPresenter: SearchPresenterProtocol {
             }
         }
     }
-  func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String {
-      return isPlaying ? "pause.fill" : "play.circle.fill"
-  }
 
+    func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String {
+        return isPlaying ? "pause.fill" : "play.circle.fill"
+    }
 
-  func albumName(for song: Song) -> String {
-      if let albumName = song.collectionName {
-          return "Album: \(albumName)"
-      } else {
-          return "Album: Unknown"
-      }
-  }
+    func albumName(for song: Song) -> String {
+        if let albumName = song.collectionName {
+            return "Album: \(albumName)"
+        } else {
+            return "Album: Unknown"
+        }
+    }
 
-  func artworkUrl(for song: Song) -> URL? {
-      if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
-          return artworkUrl
-      }
-      return nil
-  }
+    func artworkUrl(for song: Song) -> URL? {
+        if let artworkUrlString = song.artworkUrl100, let artworkUrl = URL(string: artworkUrlString) {
+            return artworkUrl
+        }
+        return nil
+    }
 
     func isPlaying(for indexPath: IndexPath) -> Bool {
         guard let nowPlayingIndexPath = nowPlayingIndexPath else {
@@ -132,6 +130,19 @@ class SearchPresenter: SearchPresenterProtocol {
         router?.goToSongDetail(forSong: song)
     }
 }
+
+// MARK: - Private Methods
+
+extension SearchPresenter {
+    @objc private func handleSongStartedPlaying(_ notification: Notification) {
+        if let nowPlayingIndexPath = nowPlayingIndexPath {
+            view?.updateButtonImage(at: nowPlayingIndexPath, to: "play.circle.fill")
+        }
+        nowPlayingIndexPath = nil
+    }
+}
+
+// MARK: - SearchInteractorOutputProtocol
 
 extension SearchPresenter: SearchInteractorOutputProtocol {
     func didRetrieveSongs(_ songs: [Song]) {

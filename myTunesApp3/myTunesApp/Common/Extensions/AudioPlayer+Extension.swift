@@ -7,6 +7,8 @@
 
 import AVFoundation
 
+// MARK: - AudioPlayerService
+
 class AudioPlayerService {
     static let shared = AudioPlayerService()
 
@@ -14,6 +16,8 @@ class AudioPlayerService {
     private var currentPlaybackTime: CMTime?
     private var playerItemURL: URL?
 
+    /// Plays audio from the specified URL.
+    /// - Parameter url: The URL of the audio to be played.
     func play(url: URL) {
         if url != playerItemURL {
             currentPlaybackTime = nil
@@ -28,11 +32,13 @@ class AudioPlayerService {
         playerItemURL = url
     }
 
+    /// Pauses the audio playback.
     func pause() {
         currentPlaybackTime = player?.currentTime()
         player?.pause()
     }
 
+    /// Returns a boolean value indicating whether the audio is currently playing.
     var isPlaying: Bool {
         return player?.timeControlStatus == .playing
     }

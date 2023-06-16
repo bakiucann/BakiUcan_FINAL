@@ -5,6 +5,8 @@
 //  Created by Baki Uçan on 13.06.2023.
 //
 
+// MARK: API MODEL
+
 struct Song: Decodable {
     let wrapperType: String
     let kind: String?

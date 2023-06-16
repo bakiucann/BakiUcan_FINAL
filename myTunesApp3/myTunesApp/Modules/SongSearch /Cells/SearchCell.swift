@@ -12,10 +12,14 @@ protocol SearchCellDelegate: AnyObject {
 }
 
 class SearchCell: UITableViewCell {
+    // MARK: - Properties
+
     static let identifier = "SearchCell"
     weak var delegate: SearchCellDelegate?
     var playButtonTapped: (() -> Void)?
     private var isPlaying: Bool = false
+
+    // MARK: - UI Components
 
     private let trackNameLabel: UILabel = {
         let label = UILabel()
@@ -40,7 +44,6 @@ class SearchCell: UITableViewCell {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.accessibilityIdentifier = "artistNameLabel"
-
         return label
     }()
 
@@ -62,6 +65,8 @@ class SearchCell: UITableViewCell {
         button.accessibilityIdentifier = "searchPlayButton"
         return button
     }()
+
+    // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -97,9 +102,11 @@ class SearchCell: UITableViewCell {
         ])
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: - Configuration
 
   func configure(with song: Song, presenter: SearchPresenterProtocol, isPlaying: Bool) {
       self.trackNameLabel.text = song.trackName
@@ -107,20 +114,20 @@ class SearchCell: UITableViewCell {
       self.albumNameLabel.text = presenter.albumName(for: song)
       playButton.setImage(UIImage(systemName: presenter.playButtonSystemImageName(for: song, isPlaying: isPlaying)), for: .normal)
 
-
-    if let artworkUrl = presenter.artworkUrl(for: song) {
-        URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    self.artworkImageView.image = UIImage(data: data)
-                }
-            }
-        }.resume()
-    }
+      if let artworkUrl = presenter.artworkUrl(for: song) {
+          URLSession.shared.dataTask(with: artworkUrl) { (data, response, error) in
+              if let data = data {
+                  DispatchQueue.main.async {
+                      self.artworkImageView.image = UIImage(data: data)
+                  }
+              }
+          }.resume()
+      }
   }
 
+  // MARK: - Button Actions
 
-    @objc private func didTapPlayButton() {
-        delegate?.didTapPlayButton(in: self)
-    }
+  @objc private func didTapPlayButton() {
+      delegate?.didTapPlayButton(in: self)
+  }
 }

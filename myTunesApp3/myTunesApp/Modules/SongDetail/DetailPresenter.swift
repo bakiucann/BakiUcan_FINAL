@@ -22,107 +22,119 @@ protocol DetailPresenterProtocol: AnyObject {
 }
 
 class DetailPresenter: DetailPresenterProtocol, DetailInteractorOutputProtocol {
-  weak var view: DetailViewProtocol?
-  var interactor: DetailInteractorInputProtocol?
-  var router: DetailRouterProtocol?
-  var song: Song?
-  var isFavorite: Bool = false
+    // MARK: - Properties
+    weak var view: DetailViewProtocol?
+    var interactor: DetailInteractorInputProtocol?
+    var router: DetailRouterProtocol?
+    var song: Song?
+    var isFavorite: Bool = false
 
-  func viewDidLoad() {
-    NotificationCenter.default.post(name: Notification.Name("SongStartedPlaying"), object: nil)
-    if let song = song {
-      view?.displaySongDetails(song)
-      if let artworkURL = URL(string: song.artworkUrl100!) {
-        interactor?.loadArtwork(from: artworkURL)
-      }
-      if let collectionPrice = song.collectionPrice {
-        view?.displayCollectionPrice(collectionPrice)
-      }
-      if let collectionId = song.collectionId {
-        interactor?.loadSongsInAlbum(collectionId: collectionId)
-      }
+    // MARK: - Protocol Methods
+    func viewDidLoad() {
+        // Notify that a song started playing
+        NotificationCenter.default.post(name: Notification.Name("SongStartedPlaying"), object: nil)
+
+        if let song = song {
+            view?.displaySongDetails(song)
+
+            // Load artwork
+            if let artworkURL = URL(string: song.artworkUrl100!) {
+                interactor?.loadArtwork(from: artworkURL)
+            }
+
+            // Display collection price
+            if let collectionPrice = song.collectionPrice {
+                view?.displayCollectionPrice(collectionPrice)
+            }
+
+            // Load songs in the same album
+            if let collectionId = song.collectionId {
+                interactor?.loadSongsInAlbum(collectionId: collectionId)
+            }
+        }
     }
-  }
-  func didRetrieveArtwork(_ data: Data) {
-      DispatchQueue.main.async {
-          if let artworkURL = URL(string: self.song?.artworkUrl100 ?? ""),
-             let imageView = self.view?.getArtworkImageView() {
-              imageView.loadImage(from: artworkURL) { [weak self] image in
-                  if image != nil {
-                      self?.view?.displayArtwork(image!)
-                  } else {
-                      self?.view?.displayPlaceholderArtwork()
-                  }
-              }
-          } else {
-              self.view?.displayPlaceholderArtwork()
-          }
-      }
-  }
-  func attributedString(for trackName: String) -> NSAttributedString {
-      let parts = trackName.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-      guard parts.count == 2 else {
-          return NSAttributedString(string: trackName)
-      }
 
-      let numberPart = String(parts[0])
-      let spacePart = "  "
-      let namePart = String(parts[1])
+    func didRetrieveArtwork(_ data: Data) {
+        DispatchQueue.main.async {
+            if let artworkURL = URL(string: self.song?.artworkUrl100 ?? ""),
+               let imageView = self.view?.getArtworkImageView() {
+                imageView.loadImage(from: artworkURL) { [weak self] image in
+                    if image != nil {
+                        self?.view?.displayArtwork(image!)
+                    } else {
+                        self?.view?.displayPlaceholderArtwork()
+                    }
+                }
+            } else {
+                self.view?.displayPlaceholderArtwork()
+            }
+        }
+    }
 
-      let numberAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
-      let spaceAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
-      let nameAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica-Bold" as CFString, 17, nil)]
+    func attributedString(for trackName: String) -> NSAttributedString {
+        let parts = trackName.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+        guard parts.count == 2 else {
+            return NSAttributedString(string: trackName)
+        }
 
-      let attributedString = NSMutableAttributedString(string: numberPart, attributes: numberAttributes)
-      attributedString.append(NSAttributedString(string: spacePart, attributes: spaceAttributes))
-      attributedString.append(NSAttributedString(string: namePart, attributes: nameAttributes))
+        let numberPart = String(parts[0])
+        let spacePart = "  "
+        let namePart = String(parts[1])
 
-      return attributedString
-  }
+        let numberAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
+        let spaceAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica" as CFString, 17, nil)]
+        let nameAttributes: [NSAttributedString.Key: Any] = [kCTFontAttributeName as NSAttributedString.Key: CTFontCreateWithName("Helvetica-Bold" as CFString, 17, nil)]
 
-  func didRetrieveAlbumSongs(_ songs: [Song]) {
-      DispatchQueue.main.async {
-          self.view?.displayAlbumSongs(songs)
-      }
-  }
+        let attributedString = NSMutableAttributedString(string: numberPart, attributes: numberAttributes)
+        attributedString.append(NSAttributedString(string: spacePart, attributes: spaceAttributes))
+        attributedString.append(NSAttributedString(string: namePart, attributes: nameAttributes))
 
-  func didTapPlayButton(for song: Song) {
-      interactor?.playSong(song)
-      self.song = song
-  }
-  func didTapFavoriteButton() {
-      guard let song = song else { return }
-      interactor?.favoriteSong(song)
-      isFavorite = true
-  }
+        return attributedString
+    }
 
-  func didTapUnfavoriteButton() {
-      guard let song = song else { return }
-      interactor?.removeFavoriteSong(song)
-      isFavorite = false
-  }
+    func didRetrieveAlbumSongs(_ songs: [Song]) {
+        DispatchQueue.main.async {
+            self.view?.displayAlbumSongs(songs)
+        }
+    }
 
-  func didTapPauseButton(for song: Song) {
-      if self.song == song {
-          interactor?.pauseSong(song)
-      }
-  }
+    func didTapPlayButton(for song: Song) {
+        interactor?.playSong(song)
+        self.song = song
+    }
+
+    func didTapFavoriteButton() {
+        guard let song = song else { return }
+        interactor?.favoriteSong(song)
+        isFavorite = true
+    }
+
+    func didTapUnfavoriteButton() {
+        guard let song = song else { return }
+        interactor?.removeFavoriteSong(song)
+        isFavorite = false
+    }
+
+    func didTapPauseButton(for song: Song) {
+        if self.song == song {
+            interactor?.pauseSong(song)
+        }
+    }
 
     func didFailToRetrieveAlbumSongs(_ error: Error) {
-      print("Failed to load album songs: \(error)")
+        print("Failed to load album songs: \(error)")
     }
 
     func didFailToRetrieveArtwork(_ error: Error) {
-      print("Failed to load image: \(error)")
-      DispatchQueue.main.async {
-        self.view?.displayPlaceholderArtwork()
-      }
+        print("Failed to load image: \(error)")
+        DispatchQueue.main.async {
+            self.view?.displayPlaceholderArtwork()
+        }
     }
-  }
+}
 
 extension Song: Equatable {
     static func == (lhs: Song, rhs: Song) -> Bool {
         return lhs.trackId == rhs.trackId
     }
 }
-

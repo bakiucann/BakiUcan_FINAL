@@ -19,12 +19,15 @@ protocol SearchViewProtocol: AnyObject, AlertPresentable, Loadable {
     func showError(withMessage message: String)
     func reloadData()
     func updateButtonImage(at indexPath: IndexPath, to imageName: String)
-
 }
 
 class SearchViewController: UIViewController, SearchViewProtocol {
-    var presenter: SearchPresenterProtocol? 
+    // MARK: - Properties
+
+    var presenter: SearchPresenterProtocol?
     let searchController = UISearchController(searchResultsController: nil)
+
+    // MARK: - UI Components
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -40,7 +43,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         let imageView = UIImageView(image: UIImage(systemName: "music.quarternote.3"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .systemPink
-      imageView.accessibilityIdentifier = "logoImageView"
+        imageView.accessibilityIdentifier = "logoImageView"
         return imageView
     }()
 
@@ -55,6 +58,8 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         return label
     }()
 
+    // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -65,6 +70,8 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         setupLogoImageView()
         setupRelatedLabel()
     }
+
+    // MARK: - SearchViewProtocol
 
     func updateButtonImage(at indexPath: IndexPath, to imageName: String) {
         guard let cell = tableView.cellForRow(at: indexPath) as? SearchCell else {
@@ -128,31 +135,35 @@ class SearchViewController: UIViewController, SearchViewProtocol {
 
 }
 
+// MARK: - UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.numberOfSongs() ?? 0
     }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
-      guard let presenter = presenter else {
-          return cell
-      }
-      if let song = presenter.song(for: indexPath) {
-        let isPlaying = presenter.isPlaying(for: indexPath)
-          cell.configure(with: song, presenter: presenter, isPlaying: isPlaying)
-      }
-      cell.delegate = self
-      return cell
-  }
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
+        guard let presenter = presenter else {
+            return cell
+        }
+        if let song = presenter.song(for: indexPath) {
+            let isPlaying = presenter.isPlaying(for: indexPath)
+            cell.configure(with: song, presenter: presenter, isPlaying: isPlaying)
+        }
+        cell.delegate = self
+        return cell
+    }
 }
+
+// MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.songSelected(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+    // MARK: - SearchViewProtocol
 
     func reloadData() {
         tableView.reloadData()
@@ -163,6 +174,8 @@ extension SearchViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
+
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text else { return }
@@ -170,6 +183,8 @@ extension SearchViewController: UISearchBarDelegate {
         searchController.dismiss(animated: true)
     }
 }
+
+// MARK: - SearchCellDelegate
 
 extension SearchViewController: SearchCellDelegate {
     func didTapPlayButton(in cell: SearchCell) {

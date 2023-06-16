@@ -9,6 +9,8 @@ import UIKit
 import Loadable
 import AlertPresentable
 
+// MARK: - DetailViewProtocol
+
 protocol DetailViewProtocol: AnyObject, AlertPresentable {
     var presenter: DetailPresenterProtocol? { get set }
     func displaySongDetails(_ song: Song)
@@ -20,16 +22,22 @@ protocol DetailViewProtocol: AnyObject, AlertPresentable {
     func showConfirmationAlert(with message: String, confirmAction: @escaping () -> Void, cancelAction: @escaping () -> Void)
 }
 
+// MARK: - DetailViewController
+
 class DetailViewController: UIViewController, DetailViewProtocol {
+    // MARK: Properties
+
     var presenter: DetailPresenterProtocol?
     var songsInAlbum: [Song] = []
     var durationFormatter: DurationFormatter = DefaultDurationFormatter()
     var currentlyPlayingSongId: Int?
 
+    // MARK: Subviews
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-      tableView.accessibilityIdentifier = "detailTableView"
+        tableView.accessibilityIdentifier = "detailTableView"
         return tableView
     }()
 
@@ -76,6 +84,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         return button
     }()
 
+    // MARK: View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -98,6 +108,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         }
     }
 
+    // MARK: Action Methods
+
     @objc func favoriteButtonTapped() {
         guard let song = presenter?.song else { return }
         let isFavorite = song.isFavorite
@@ -119,6 +131,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
         }
     }
+
+    // MARK: Public Methods
 
     func displaySongDetails(_ song: Song) {
         self.titleLabel.text = song.trackName
@@ -159,6 +173,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         currentlyPlayingSongId = nil
         self.tableView.reloadData()
     }
+
+  // MARK: - Setup Views
 
   private func setupViews() {
       let stackView = UIStackView()
@@ -208,47 +224,57 @@ class DetailViewController: UIViewController, DetailViewProtocol {
   }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+
+    // Number of rows in the tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return songsInAlbum.count
     }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
-      cell.accessibilityIdentifier = "songCell_\(indexPath.row)"
-      let song = songsInAlbum[indexPath.row]
-      let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
+    // Configure each cell in the tableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Dequeue a reusable cell from the tableView
+        let cell = tableView.dequeueReusableCell(withIdentifier: SongTableViewCell.identifier, for: indexPath) as! SongTableViewCell
+        cell.accessibilityIdentifier = "songCell_\(indexPath.row)"
 
-          cell.delegate = self
+        // Get the song at the given index
+        let song = songsInAlbum[indexPath.row]
+        let trackName = String(format: "%-5d %@", indexPath.row + 1, song.trackName ?? "")
 
-      let attributedString = presenter?.attributedString(for: trackName) ?? NSAttributedString(string: trackName)
+        cell.delegate = self
 
-      if let trackTimeMillis = song.trackTimeMillis {
-          let duration = durationFormatter.format(milliseconds: trackTimeMillis)
-          cell.configure(with: attributedString, duration: duration, price: song.trackPrice ?? 0.0)
-      } else {
-          cell.configure(with: attributedString, duration: "", price: song.trackPrice ?? 0.0)
-      }
+        let attributedString = presenter?.attributedString(for: trackName) ?? NSAttributedString(string: trackName)
 
-      cell.isPlaying = song.trackId == currentlyPlayingSongId
+        // Check if the song has a duration
+        if let trackTimeMillis = song.trackTimeMillis {
+            let duration = durationFormatter.format(milliseconds: trackTimeMillis)
+            cell.configure(with: attributedString, duration: duration, price: song.trackPrice ?? 0.0)
+        } else {
+            cell.configure(with: attributedString, duration: "", price: song.trackPrice ?? 0.0)
+        }
 
-      cell.playButtonAction = { [weak self] in
-          self?.currentlyPlayingSongId = song.trackId
-          self?.tableView.reloadData()
-          self?.presenter?.didTapPlayButton(for: song)
-      }
+        cell.isPlaying = song.trackId == currentlyPlayingSongId
 
-      cell.pauseButtonAction = { [weak self] in
-          if self?.currentlyPlayingSongId == song.trackId {
-              self?.currentlyPlayingSongId = nil
-              self?.tableView.reloadData()
-          }
-          self?.presenter?.didTapPauseButton(for: song)
-      }
+        // Play button action
+        cell.playButtonAction = { [weak self] in
+            self?.currentlyPlayingSongId = song.trackId
+            self?.tableView.reloadData()
+            self?.presenter?.didTapPlayButton(for: song)
+        }
 
-      return cell
-  }
+        // Pause button action
+        cell.pauseButtonAction = { [weak self] in
+            if self?.currentlyPlayingSongId == song.trackId {
+                self?.currentlyPlayingSongId = nil
+                self?.tableView.reloadData()
+            }
+            self?.presenter?.didTapPauseButton(for: song)
+        }
 
+        return cell
+    }
+  // MARK: - VIEW FOR HEADER IN SECTION
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = .white
@@ -282,7 +308,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
 }
+
+// MARK: - SongTableViewCellDelegate
+
 extension DetailViewController: SongTableViewCellDelegate {
+
     func didTapPlayButton(on cell: SongTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let song = songsInAlbum[indexPath.row]

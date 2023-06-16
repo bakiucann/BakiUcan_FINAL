@@ -7,11 +7,16 @@
 
 import Foundation
 
+// MARK: - DurationFormatter
+
 protocol DurationFormatter {
     func format(milliseconds: Int) -> String
 }
 
 class DefaultDurationFormatter: DurationFormatter {
+    /// Formats the duration in milliseconds into a string representation.
+    /// - Parameter milliseconds: The duration in milliseconds.
+    /// - Returns: The formatted duration string in the format "mm:ss".
     func format(milliseconds: Int) -> String {
         let totalSeconds = milliseconds / 1000
         let minutes = totalSeconds / 60

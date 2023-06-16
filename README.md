@@ -1,5 +1,4 @@
-# BakiUcan_FINAL
-# myTunesApp
+# myTunes App
 
 <img width="250" alt="mytunes" src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/e2d4ef20-035c-48f2-b421-35645d67e55e">
 

@@ -19,14 +19,18 @@ protocol SearchInteractorOutputProtocol: AnyObject {
 
 class SearchInteractor: SearchInteractorInputProtocol {
     weak var presenter: SearchInteractorOutputProtocol?
+    private let networkManager: NetworkManagerProtocol
 
+    init(networkManager: NetworkManagerProtocol = NetworkManager()) {
+        self.networkManager = networkManager
+    }
 
     func searchSong(with term: String) {
-        NetworkManager().fetchSongs(with: term) { (result) in
+        networkManager.fetchSongs(with: term) { (result) in
             switch result {
             case .success(let songs):
                 self.presenter?.didRetrieveSongs(songs)
-            case .failure:
+            case .failure(_):
                 self.presenter?.onError()
             }
         }

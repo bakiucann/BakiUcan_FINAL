@@ -23,6 +23,8 @@ protocol SearchPresenterProtocol: AnyObject {
     func playButtonSystemImageName(for song: Song, isPlaying: Bool) -> String
     func artworkUrl(for song: Song) -> URL?
     func albumName(for song: Song) -> String
+    func didRetrieveSongs(_ songs: [Song])
+
 }
 
 class SearchPresenter: SearchPresenterProtocol {

@@ -36,6 +36,17 @@
 		2D4F35C92A2F6A1600CE124E /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35C82A2F6A1600CE124E /* DetailPresenter.swift */; };
 		2D4F35CD2A2F6A9C00CE124E /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35CC2A2F6A9C00CE124E /* DetailRouter.swift */; };
 		2D4F35D12A2F6B6300CE124E /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4F35D02A2F6B6300CE124E /* DetailInteractor.swift */; };
+		2D6868552A3BE54100AE6B8D /* SplashPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868542A3BE54100AE6B8D /* SplashPresenterTests.swift */; };
+		2D6868572A3BE54D00AE6B8D /* SplashInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868562A3BE54D00AE6B8D /* SplashInteractorTests.swift */; };
+		2D6868592A3BE55700AE6B8D /* SplashRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868582A3BE55700AE6B8D /* SplashRouterTests.swift */; };
+		2D68685C2A3BE57200AE6B8D /* SplashViewProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68685B2A3BE57200AE6B8D /* SplashViewProtocolMock.swift */; };
+		2D68685E2A3BE58B00AE6B8D /* SplashInteractorInputProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68685D2A3BE58B00AE6B8D /* SplashInteractorInputProtocolMock.swift */; };
+		2D6868602A3BE59500AE6B8D /* SplashRouterProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68685F2A3BE59500AE6B8D /* SplashRouterProtocolMock.swift */; };
+		2D6868632A3BEF4E00AE6B8D /* MockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868622A3BEF4E00AE6B8D /* MockSearchViewController.swift */; };
+		2D6868652A3BEF5C00AE6B8D /* MockSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868642A3BEF5C00AE6B8D /* MockSearchInteractor.swift */; };
+		2D6868672A3BEF7000AE6B8D /* MockSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868662A3BEF7000AE6B8D /* MockSearchRouter.swift */; };
+		2D6868692A3BEF8200AE6B8D /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6868682A3BEF8200AE6B8D /* SearchPresenterTests.swift */; };
+		2D68686F2A3C8C6C00AE6B8D /* Songs.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D68686E2A3C849400AE6B8D /* Songs.json */; };
 		2D85AACB2A30135D0097E5EE /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D85AACA2A30135D0097E5EE /* SearchCell.swift */; };
 		2D85AAD02A30189F0097E5EE /* AlertPresentable in Frameworks */ = {isa = PBXBuildFile; productRef = 2D85AACF2A30189F0097E5EE /* AlertPresentable */; };
 		2D85AAD22A3018A20097E5EE /* Loadable in Frameworks */ = {isa = PBXBuildFile; productRef = 2D85AAD12A3018A20097E5EE /* Loadable */; };
@@ -94,6 +105,17 @@
 		2D4F35C82A2F6A1600CE124E /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		2D4F35CC2A2F6A9C00CE124E /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		2D4F35D02A2F6B6300CE124E /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		2D6868542A3BE54100AE6B8D /* SplashPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenterTests.swift; sourceTree = "<group>"; };
+		2D6868562A3BE54D00AE6B8D /* SplashInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractorTests.swift; sourceTree = "<group>"; };
+		2D6868582A3BE55700AE6B8D /* SplashRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRouterTests.swift; sourceTree = "<group>"; };
+		2D68685B2A3BE57200AE6B8D /* SplashViewProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewProtocolMock.swift; sourceTree = "<group>"; };
+		2D68685D2A3BE58B00AE6B8D /* SplashInteractorInputProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractorInputProtocolMock.swift; sourceTree = "<group>"; };
+		2D68685F2A3BE59500AE6B8D /* SplashRouterProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRouterProtocolMock.swift; sourceTree = "<group>"; };
+		2D6868622A3BEF4E00AE6B8D /* MockSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchViewController.swift; sourceTree = "<group>"; };
+		2D6868642A3BEF5C00AE6B8D /* MockSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchInteractor.swift; sourceTree = "<group>"; };
+		2D6868662A3BEF7000AE6B8D /* MockSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchRouter.swift; sourceTree = "<group>"; };
+		2D6868682A3BEF8200AE6B8D /* SearchPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
+		2D68686E2A3C849400AE6B8D /* Songs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Songs.json; sourceTree = "<group>"; };
 		2D85AACA2A30135D0097E5EE /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		2DA7BB152A3223210031399A /* Loadable */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Loadable; path = ../Loadable; sourceTree = "<group>"; };
 		2DA7BB162A3223210031399A /* AlertPresentable */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AlertPresentable; path = ../AlertPresentable; sourceTree = "<group>"; };
@@ -173,6 +195,7 @@
 		2D4F35602A2E8FAC00CE124E /* myTunesAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				2D6868502A3BE4AF00AE6B8D /* Tests */,
 				2D4F35612A2E8FAC00CE124E /* myTunesAppTests.swift */,
 			);
 			path = myTunesAppTests;
@@ -305,6 +328,64 @@
 				2D4F35A62A2E978D00CE124E /* CoreDataManager.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		2D6868502A3BE4AF00AE6B8D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2D6868512A3BE4B400AE6B8D /* SplashTests */,
+				2D6868522A3BE4BF00AE6B8D /* SearchTests */,
+				2D6868532A3BE4D000AE6B8D /* DetailTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		2D6868512A3BE4B400AE6B8D /* SplashTests */ = {
+			isa = PBXGroup;
+			children = (
+				2D68685A2A3BE56100AE6B8D /* Mocks */,
+				2D6868542A3BE54100AE6B8D /* SplashPresenterTests.swift */,
+				2D6868562A3BE54D00AE6B8D /* SplashInteractorTests.swift */,
+				2D6868582A3BE55700AE6B8D /* SplashRouterTests.swift */,
+			);
+			path = SplashTests;
+			sourceTree = "<group>";
+		};
+		2D6868522A3BE4BF00AE6B8D /* SearchTests */ = {
+			isa = PBXGroup;
+			children = (
+				2D68686E2A3C849400AE6B8D /* Songs.json */,
+				2D6868682A3BEF8200AE6B8D /* SearchPresenterTests.swift */,
+				2D6868612A3BEF3100AE6B8D /* Mocks */,
+			);
+			path = SearchTests;
+			sourceTree = "<group>";
+		};
+		2D6868532A3BE4D000AE6B8D /* DetailTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailTests;
+			sourceTree = "<group>";
+		};
+		2D68685A2A3BE56100AE6B8D /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2D68685B2A3BE57200AE6B8D /* SplashViewProtocolMock.swift */,
+				2D68685D2A3BE58B00AE6B8D /* SplashInteractorInputProtocolMock.swift */,
+				2D68685F2A3BE59500AE6B8D /* SplashRouterProtocolMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2D6868612A3BEF3100AE6B8D /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2D6868622A3BEF4E00AE6B8D /* MockSearchViewController.swift */,
+				2D6868642A3BEF5C00AE6B8D /* MockSearchInteractor.swift */,
+				2D6868662A3BEF7000AE6B8D /* MockSearchRouter.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		2D85AAC72A3007F80097E5EE /* Frameworks */ = {
@@ -474,6 +555,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D68686F2A3C8C6C00AE6B8D /* Songs.json in Resources */,
 				2D4F358A2A2E915C00CE124E /* SplashViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,7 +606,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6868692A3BEF8200AE6B8D /* SearchPresenterTests.swift in Sources */,
+				2D68685E2A3BE58B00AE6B8D /* SplashInteractorInputProtocolMock.swift in Sources */,
 				2D4F35622A2E8FAC00CE124E /* myTunesAppTests.swift in Sources */,
+				2D68685C2A3BE57200AE6B8D /* SplashViewProtocolMock.swift in Sources */,
+				2D6868592A3BE55700AE6B8D /* SplashRouterTests.swift in Sources */,
+				2D6868632A3BEF4E00AE6B8D /* MockSearchViewController.swift in Sources */,
+				2D6868672A3BEF7000AE6B8D /* MockSearchRouter.swift in Sources */,
+				2D6868602A3BE59500AE6B8D /* SplashRouterProtocolMock.swift in Sources */,
+				2D6868572A3BE54D00AE6B8D /* SplashInteractorTests.swift in Sources */,
+				2D6868652A3BEF5C00AE6B8D /* MockSearchInteractor.swift in Sources */,
+				2D6868552A3BE54100AE6B8D /* SplashPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 import UIKit
-import Loadable //İlk açılışta (bazen) bunu ve dolayısıyla alttaki hideLoading fonksiyonunu algılamıyor. Bu importu ve hideLoading'i kaldırıp build edilip sonradan eklendiğinde sorunsuz çalışıyor ve tekrar bu problem olmuyor.
+import Loadable //İlk açılışta (bazen) bunu ve dolayısıyla alttaki hideLoading fonksiyonunu algılamıyor. Bu importu ve hideLoading'i kaldırıp build edilip sonradan eklendiğinde sorunsuz çalışıyor ve tekrar bu problem olmuyor. Dependencies olarak eklendi sorun çözülmüş olabilir  yine de bu notu kaldırmadım.
 
 public protocol AlertPresentable {
     func showNoResults()

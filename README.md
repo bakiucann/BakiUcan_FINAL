@@ -1,6 +1,6 @@
 # myTunes App
 
-<img width="250" alt="mytunes" src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/e2d4ef20-035c-48f2-b421-35645d67e55e">
+<img width="250" alt="mytunes" src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/fcaf3a29-99e3-4401-a645-9d188cff3a9c">
 
 `myTunesApp` is a highly dynamic and user-friendly music search application crafted in Swift. The application permits users to search for their beloved songs and include them in their favorite list. This application exhibits a well-structured VIPER (View-Interactor-Presenter-Entity-Router) architecture to ensure an organized, maintainable, and testable codebase.
 

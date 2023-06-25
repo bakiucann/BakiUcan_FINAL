@@ -53,17 +53,17 @@ Follow the steps below to setup this project locally:
 
 Here are some screenshots and video walkthroughs of the application in action:
 
-<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/bbdd064b-a065-47f0-af58-7d779aa80747" width="200" />
-<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/7c8c21ae-20c6-4d88-a3d7-7fbbde882027" width="200" />
-<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/436385f3-aa6e-497f-a1b2-3fc2235f4704" width="200" />
-<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/577f0913-e047-4eae-9165-84f07b461ea8" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/ed3a625c-e4d3-4fa4-8faf-e4a156f40ca7" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/98b4c327-199d-42cc-8f21-6ee8429aabc7" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/79f542ec-4f83-4864-815c-f8207da57541" width="200" />
+<img src="https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/6886f209-1b0d-4b8a-9c07-7f5e20d77e78" width="200" />
 
 
 For a more interactive overview, check out these video demos:
 
 
+https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/74947646-2236-43e6-844e-b81cec3d63dd
 
-https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/3dd88b9b-0910-46e2-86ba-6fc12aef57da
 
 
 ## Contributing

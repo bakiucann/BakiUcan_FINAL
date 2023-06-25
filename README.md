@@ -63,7 +63,7 @@ For a more interactive overview, check out these video demos:
 
 
 
-https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/fdcfc214-3cb9-40cb-a929-facd3f6da836
+https://github.com/bakiucann/BakiUcan_FINAL/assets/113190194/3dd88b9b-0910-46e2-86ba-6fc12aef57da
 
 
 ## Contributing
